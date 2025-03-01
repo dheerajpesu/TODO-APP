@@ -8,6 +8,8 @@ import './App.css';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
+const BASE_URL = "https://dashboard.render.com/web/srv-cv1k109u0jms738i51eg/api/tasks"; // Your Render backend URL
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
@@ -19,8 +21,13 @@ function App() {
   }, []);
 
   const fetchTasks = async () => {
-    const response = await axios.get('http://localhost:5000/api/tasks');
-    setTasks(response.data);
+    try {
+      const response = await axios.get(BASE_URL);
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      toast.error("Failed to fetch tasks.");
+    }
   };
 
   const openModal = () => setModalIsOpen(true);
@@ -36,32 +43,18 @@ function App() {
   const handleTaskType = async (fixed) => {
     setIsFixed(fixed);
     try {
-      await axios.post('http://localhost:5000/api/tasks', {
+      await axios.post(BASE_URL, {
         title: newTask,
         isFixed: fixed
       });
       const taskType = fixed ? 'Fixed' : 'Variable';
-      toast.success(`Task "${newTask}" added as a ${taskType} Task!`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success(`Task "${newTask}" added as a ${taskType} Task!`);
       setNewTask('');
       closeModal();
       fetchTasks();
     } catch (err) {
       console.error('Error adding task:', err);
-      toast.error('Failed to add task. Please try again.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.error('Failed to add task. Please try again.');
     }
   };
 
