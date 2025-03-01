@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Import toast from react-toastify
+import { toast } from 'react-toastify';
+
+const API_URL = "https://srv-cv1k109u0jms738i51eg.onrender.com/api/tasks"; // Correct backend URL
 
 function TaskList({ tasks, fetchTasks }) {
   const toggleTask = async (task) => {
-    await axios.patch(`http://localhost:5000/api/tasks/${task._id}`, {
+    await axios.patch(`${API_URL}/${task._id}`, {
       completed: !task.completed
     });
     fetchTasks();
@@ -15,7 +17,7 @@ function TaskList({ tasks, fetchTasks }) {
       const taskToDelete = tasks.find(task => task._id === id);
       const taskType = taskToDelete.isFixed ? 'Fixed' : 'Variable';
       try {
-        await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+        await axios.delete(`${API_URL}/${id}`);
         toast.success(`"${taskToDelete.title}" (${taskType} Task) deleted successfully!`, {
           position: "top-right",
           autoClose: 3000,
