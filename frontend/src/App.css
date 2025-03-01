@@ -1,0 +1,191 @@
+/* General App Styling */
+.App {
+    max-width: 800px; /* Increased width for a more spacious look */
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #f5f7fa; /* Light background for a clean look */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: 'Arial', sans-serif; /* Modern, clean font */
+    color: #333; /* Dark text for readability */
+  }
+  
+  /* Header Styling */
+  h1 {
+    text-align: center;
+    color: #2c3e50; /* Deep blue for header */
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Slight text shadow for depth */
+  }
+  
+  /* Form Styling */
+  form {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  input[type="text"] {
+    padding: 12px 15px;
+    width: 60%; /* Adjusted for balance with button */
+    border: 2px solid #3498db; /* Bright blue border */
+    border-radius: 25px; /* Rounded input */
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  }
+  
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #2980b9; /* Darker blue on focus */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Glow effect on focus */
+  }
+  
+  button {
+    padding: 12px 25px;
+    background-color: #3498db; /* Bright blue button */
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  }
+  
+  button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight scale on hover for interactivity */
+  }
+  
+  button:active {
+    transform: scale(0.98); /* Slight scale on click for feedback */
+  }
+  
+  /* Task Lists Styling */
+  h2 {
+    color: #2c3e50;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #3498db; /* Blue underline for sections */
+    padding-bottom: 5px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    background-color: white; /* White background for tasks */
+    padding: 15px;
+    border-radius: 10px; /* Rounded task items */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for tasks */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effects */
+  }
+  
+  li:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+  }
+  
+  li input[type="checkbox"] {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #3498db; /* Custom checkbox color */
+  }
+  
+  li span {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    color: #444;
+    transition: text-decoration 0.3s ease; /* Smooth strikethrough animation */
+  }
+  
+  li span[style*="line-through"] {
+    color: #7f8c8d; /* Lighter color for completed tasks */
+  }
+  
+  /* Delete Button Styling */
+  li button {
+    margin-left: 15px;
+    background-color: #e74c3c; /* Red for delete button */
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+  
+  li button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: scale(1.05);
+  }
+  
+  li button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Modal Styling (if using modal for task type selection) */
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+  }
+  
+  .modal h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .modal button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .modal button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+  }
+  
+  .modal button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Toast Notification Styling */
+  .Toastify__toast {
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Toastify__toast--success {
+    background-color: #2ecc71; /* Green for success */
+    color: white;
+  }
+  
+  .Toastify__toast--error {
+    background-color: #e74c3c; /* Red for error */
+    color: white;
+  }
+  
+  .Toastify__progress-bar {
+    background-color: #3498db; /* Blue progress bar */
+  }
