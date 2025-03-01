@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
 
+// ✅ Get all tasks
 router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find();
@@ -11,13 +12,11 @@ router.get('/', async (req, res) => {
   }
 });
 
+// ✅ Create a new task
 router.post('/', async (req, res) => {
-  const task = new Task({
-    title: req.body.title,
-    isFixed: req.body.isFixed
-  });
-
   try {
+    const { title, isFixed, completed } = req.body;
+    const task = new Task({ title, isFixed, completed });
     const newTask = await task.save();
     res.status(201).json(newTask);
   } catch (err) {
@@ -25,19 +24,19 @@ router.post('/', async (req, res) => {
   }
 });
 
+// ✅ Update task completion status
 router.patch('/:id', async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
-    if (task) {
-      task.completed = req.body.completed;
-      const updatedTask = await task.save();
-      res.json(updatedTask);
-    }
+    const { id } = req.params;
+    const { completed } = req.body;
+    const updatedTask = await Task.findByIdAndUpdate(id, { completed }, { new: true });
+    res.json(updatedTask);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
+// ✅ Delete a task
 router.delete('/:id', async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
