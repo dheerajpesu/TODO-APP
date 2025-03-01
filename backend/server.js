@@ -11,7 +11,14 @@ dotenv.config(); // Load environment variables
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+// ✅ Configure CORS properly
+const corsOptions = {
+  origin: ['https://todo-app-1-kzxh.onrender.com'], // Allow only your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 
 // Debugging: Ensure MONGODB_URI is loaded
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
