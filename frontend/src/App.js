@@ -8,10 +8,9 @@ import './App.css';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
-// ✅ Use correct API URL based on environment
-const BASE_URL = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:5000/api/tasks'  // Local backend
-  : 'https://todo-app-1-kzxh.onrender.com/api/tasks';  // Deployed backend
+// ✅ Use Correct API URL Based on Environment
+const BASE_URL =
+  process.env.REACT_APP_API_URL || 'http://localhost:10000/api/tasks';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -28,8 +27,8 @@ function App() {
       const response = await axios.get(BASE_URL);
       setTasks(response.data);
     } catch (error) {
-      console.error("Error fetching tasks:", error);
-      toast.error("Failed to fetch tasks.");
+      console.error('❌ Error fetching tasks:', error);
+      toast.error('Failed to fetch tasks.');
     }
   };
 
@@ -48,23 +47,23 @@ function App() {
     try {
       await axios.post(BASE_URL, {
         title: newTask,
-        isFixed: fixed
+        isFixed: fixed,
       });
       const taskType = fixed ? 'Fixed' : 'Variable';
-      toast.success(`Task "${newTask}" added as a ${taskType} Task!`);
+      toast.success(`✅ Task "${newTask}" added as a ${taskType} Task!`);
       setNewTask('');
       closeModal();
       fetchTasks();
     } catch (err) {
-      console.error('Error adding task:', err);
+      console.error('❌ Error adding task:', err);
       toast.error('Failed to add task. Please try again.');
     }
   };
 
   return (
     <div className="App">
-      <h1>TODO App</h1>
-      
+      <h1>✅ TODO App</h1>
+
       <form onSubmit={addTask}>
         <input
           type="text"
@@ -84,8 +83,10 @@ function App() {
         className="modal"
       >
         <h2>Select Task Type</h2>
-        <button onClick={() => handleTaskType(true)}>Fixed Task (Resets Daily)</button>
-        <button onClick={() => handleTaskType(false)}>Variable Task</button>
+        <button onClick={() => handleTaskType(true)}>
+          ✅ Fixed Task (Resets Daily)
+        </button>
+        <button onClick={() => handleTaskType(false)}>📝 Variable Task</button>
         <button onClick={closeModal}>Cancel</button>
       </Modal>
 
