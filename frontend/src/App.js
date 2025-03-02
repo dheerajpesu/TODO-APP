@@ -8,7 +8,10 @@ import './App.css';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
-const BASE_URL = "https://dashboard.render.com/web/srv-cv1k109u0jms738i51eg/api/tasks"; // Your Render backend URL
+// ✅ Use correct API URL based on environment
+const BASE_URL = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:5000/api/tasks'  // Local backend
+  : 'https://todo-app-1-kzxh.onrender.com/api/tasks';  // Deployed backend
 
 function App() {
   const [tasks, setTasks] = useState([]);

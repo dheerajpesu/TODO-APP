@@ -9,16 +9,16 @@ const Task = require('./models/Task');
 dotenv.config(); // Load environment variables
 
 const app = express();
-
 app.use(express.json());
 
-// ✅ Configure CORS properly
+// ✅ Allow CORS for both local & production frontend
 const corsOptions = {
-  origin: ['https://todo-app-1-kzxh.onrender.com'], // Allow only your frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: ['http://localhost:3000', 'https://todo-app-1-kzxh.onrender.com'], // Allow local & deployed frontend
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
 };
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // ✅ Fix preflight CORS errors
 
 // Debugging: Ensure MONGODB_URI is loaded
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 const taskRoutes = require('./routes/taskRoutes');
 app.use('/api/tasks', taskRoutes);
 
-// Reset fixed tasks every day at midnight
+// ✅ Reset fixed tasks every day at midnight
 schedule.scheduleJob('0 0 * * *', async () => {
   try {
     await Task.updateMany({ isFixed: true }, { completed: false });
@@ -49,7 +49,7 @@ schedule.scheduleJob('0 0 * * *', async () => {
   }
 });
 
-// Initialize fixed tasks on server start if none exist
+// ✅ Initialize fixed tasks on server start if none exist
 const initializeFixedTasks = async () => {
   try {
     const fixedTasksCount = await Task.countDocuments({ isFixed: true });
@@ -66,10 +66,9 @@ const initializeFixedTasks = async () => {
     console.error('Error initializing fixed tasks:', err);
   }
 };
-
 initializeFixedTasks();
 
-// ✅ Serve static frontend files
+// ✅ Serve static frontend files (for production)
 const frontendPath = path.join(__dirname, 'build');
 app.use(express.static(frontendPath));
 
